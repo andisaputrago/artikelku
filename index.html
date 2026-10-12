@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artikelku Bos - AI Assistant</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar untuk tabel agar serasi dengan tema web */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 9999px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white">
 
@@ -120,6 +137,82 @@
             </div>
         </section>
 
+        <!-- SUPABASE DATA TABLE SECTION -->
+        <section class="bg-white border border-slate-200 rounded-3xl p-6 md:p-10 shadow-sm space-y-6">
+            <!-- Header Section with Badge & Info -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6">
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2">
+                        <span class="p-2 bg-blue-50 text-blue-600 rounded-xl text-lg">🗄️</span>
+                        <h2 class="text-2xl font-bold text-slate-900">Direktori Data & Tempat Terhubung</h2>
+                    </div>
+                    <p class="text-slate-600 text-sm pl-11">Menampilkan data real-time yang tersimpan langsung di database Supabase.</p>
+                </div>
+                
+                <!-- Live Count Badge -->
+                <div class="flex items-center gap-2 self-start md:self-auto">
+                    <span id="data-count-badge" class="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 px-3.5 py-1.5 rounded-full text-emerald-700 text-xs font-semibold shadow-xs">
+                        <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                        <span id="data-count-text">Menghubungkan...</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Search & Controls Bar -->
+            <div class="flex flex-col sm:flex-row gap-3 items-center justify-between">
+                <div class="relative w-full sm:w-80">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </span>
+                    <input 
+                        type="text" 
+                        id="table-search" 
+                        oninput="filterPlaces()" 
+                        placeholder="Cari tempat, kota, kategori..." 
+                        class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                    >
+                </div>
+                <div class="text-xs text-slate-500 self-end sm:self-center font-medium" id="display-info">
+                    Sinkronisasi data otomatis dari cloud
+                </div>
+            </div>
+            
+            <!-- Table Container with Rounded Borders -->
+            <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-xs bg-white">
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left text-sm border-collapse" id="places">
+                        <thead>
+                            <tr class="bg-slate-50/90 border-b border-slate-200 text-xs font-semibold text-slate-600 tracking-wider">
+                                <th class="py-3.5 px-4 font-semibold">Nama Tempat</th>
+                                <th class="py-3.5 px-4 font-semibold">Kategori</th>
+                                <th class="py-3.5 px-4 font-semibold text-center">Rating</th>
+                                <th class="py-3.5 px-4 font-semibold text-center">Review</th>
+                                <th class="py-3.5 px-4 font-semibold">Kota</th>
+                                <th class="py-3.5 px-4 font-semibold">Telepon</th>
+                                <th class="py-3.5 px-4 font-semibold text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100" id="places-body">
+                            <tr>
+                                <td colspan="7" class="py-12 text-center text-slate-400">
+                                    <div class="flex flex-col items-center justify-center gap-3">
+                                        <div class="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                                        <p class="text-sm font-medium text-slate-500">Memuat data dari database Supabase...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Table Footer Note -->
+            <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 pt-2 gap-2">
+                <span>Diurutkan berdasarkan ulasan terbanyak (Top Reviews)</span>
+                <span class="text-slate-400">Database Engine: PostgreSQL Supabase</span>
+            </div>
+        </section>
+
         <!-- 4. INTERACTIVE SIMULATION -->
         <section class="bg-white border border-slate-200 rounded-3xl p-6 md:p-10 shadow-sm space-y-6">
             <div class="text-center space-y-2">
@@ -175,8 +268,184 @@
         </div>
     </footer>
 
-    <!-- JavaScript for Interactive Simulation -->
+    <!-- JavaScript for Supabase Table & Interactive Simulation -->
     <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://nzbjppjuzgnzvdyadmox.supabase.co'; 
+        const SUPABASE_KEY = 'sb_publishable_CJdHqr_UPLt71szw8v91fQ_vGNhODzN'; 
+
+        let allPlacesData = [];
+
+        async function loadPlaces() {
+            const tbody = document.getElementById('places-body');
+            const countText = document.getElementById('data-count-text');
+
+            try {
+                const res = await fetch(
+                    SUPABASE_URL + '/rest/v1/places?select=*&order=reviews_count.desc.nullslast&limit=100',
+                    { headers: { apikey: SUPABASE_KEY } }
+                );
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                allPlacesData = await res.json();
+
+                countText.textContent = `${allPlacesData.length} Tempat Terhubung`;
+                renderTable(allPlacesData);
+            } catch (e) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="py-8 text-center text-rose-500">
+                            <div class="flex flex-col items-center justify-center gap-2">
+                                <span class="text-2xl">⚠️</span>
+                                <span class="font-medium text-sm">Gagal memuat data dari Supabase.</span>
+                                <span class="text-xs text-slate-400">Pastikan URL, API Key, dan permission RLS (Read) sudah benar.</span>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                countText.textContent = 'Koneksi Gagal';
+                console.error(e);
+            }
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('places-body');
+            tbody.innerHTML = '';
+
+            if (!data.length) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="py-10 text-center text-slate-400">
+                            <div class="flex flex-col items-center justify-center gap-1">
+                                <span class="text-2xl">🔍</span>
+                                <span class="text-sm font-medium">Tidak ada data tempat yang cocok.</span>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            data.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50/80 transition-colors group';
+
+                // 1. Title / Nama Tempat
+                const tdTitle = document.createElement('td');
+                tdTitle.className = 'py-3.5 px-4 font-semibold text-slate-900 group-hover:text-blue-600 transition-colors';
+                tdTitle.textContent = p.title || '-';
+                tr.appendChild(tdTitle);
+
+                // 2. Kategori Badge
+                const tdCat = document.createElement('td');
+                tdCat.className = 'py-3.5 px-4 whitespace-nowrap';
+                if (p.category_name) {
+                    tdCat.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200/70">${escapeHtml(p.category_name)}</span>`;
+                } else {
+                    tdCat.innerHTML = '<span class="text-slate-400 text-xs">-</span>';
+                }
+                tr.appendChild(tdCat);
+
+                // 3. Rating Score (Star Badge)
+                const tdRating = document.createElement('td');
+                tdRating.className = 'py-3.5 px-4 text-center whitespace-nowrap';
+                if (p.total_score != null) {
+                    tdRating.innerHTML = `
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200/80">
+                            <svg class="w-3.5 h-3.5 fill-amber-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            ${Number(p.total_score).toFixed(1)}
+                        </span>
+                    `;
+                } else {
+                    tdRating.innerHTML = '<span class="text-slate-400 text-xs">-</span>';
+                }
+                tr.appendChild(tdRating);
+
+                // 4. Review Count
+                const tdReviews = document.createElement('td');
+                tdReviews.className = 'py-3.5 px-4 text-center whitespace-nowrap';
+                if (p.reviews_count != null) {
+                    tdReviews.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold text-blue-700 bg-blue-50 border border-blue-100">${Number(p.reviews_count).toLocaleString('id-ID')}</span>`;
+                } else {
+                    tdReviews.innerHTML = '<span class="text-slate-400 text-xs">-</span>';
+                }
+                tr.appendChild(tdReviews);
+
+                // 5. Kota
+                const tdCity = document.createElement('td');
+                tdCity.className = 'py-3.5 px-4 text-slate-600 text-xs whitespace-nowrap';
+                if (p.city) {
+                    tdCity.innerHTML = `<span class="inline-flex items-center gap-1 font-medium"><span class="text-slate-400">📍</span>${escapeHtml(p.city)}</span>`;
+                } else {
+                    tdCity.innerHTML = '<span class="text-slate-400">-</span>';
+                }
+                tr.appendChild(tdCity);
+
+                // 6. Telepon
+                const tdPhone = document.createElement('td');
+                tdPhone.className = 'py-3.5 px-4 whitespace-nowrap text-xs';
+                if (p.phone) {
+                    tdPhone.innerHTML = `
+                        <a href="tel:${escapeHtml(p.phone)}" class="text-slate-600 hover:text-blue-600 transition-colors inline-flex items-center gap-1.5 font-mono">
+                            <span class="text-slate-400">📞</span>${escapeHtml(p.phone)}
+                        </a>
+                    `;
+                } else {
+                    tdPhone.innerHTML = '<span class="text-slate-400">-</span>';
+                }
+                tr.appendChild(tdPhone);
+
+                // 7. Maps Action Button
+                const tdAction = document.createElement('td');
+                tdAction.className = 'py-3.5 px-4 text-center whitespace-nowrap';
+                if (p.url && p.url.startsWith('https://')) {
+                    tdAction.innerHTML = `
+                        <a href="${escapeHtml(p.url)}" target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 hover:bg-blue-600 text-blue-600 hover:text-white rounded-xl text-xs font-semibold border border-blue-200 hover:border-transparent transition-all shadow-2xs">
+                            <span>Buka</span>
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                    `;
+                } else {
+                    tdAction.innerHTML = '<span class="text-slate-400 text-xs">-</span>';
+                }
+                tr.appendChild(tdAction);
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Fitur Pencarian Real-Time
+        function filterPlaces() {
+            const query = document.getElementById('table-search').value.toLowerCase().trim();
+            if (!query) {
+                renderTable(allPlacesData);
+                return;
+            }
+            const filtered = allPlacesData.filter(p => {
+                const title = (p.title || '').toLowerCase();
+                const cat = (p.category_name || '').toLowerCase();
+                const city = (p.city || '').toLowerCase();
+                const phone = (p.phone || '').toLowerCase();
+                return title.includes(query) || cat.includes(query) || city.includes(query) || phone.includes(query);
+            });
+            renderTable(filtered);
+        }
+
+        // Sanitasi teks ringan
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+        
+        // Panggil fungsi load data Supabase saat halaman dimuat
+        loadPlaces();
+
+        // Interactive Simulation Logic
         const chatScreen = document.getElementById('chat-screen');
 
         const scenarios = {
