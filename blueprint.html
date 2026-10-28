@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Content Automation Blueprint</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0b0f19',
+                            800: '#111827',
+                            700: '#1f2937',
+                            600: '#374151',
+                        },
+                        brand: {
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            400: '#818cf8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-gray-100 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Header / Hero Section -->
+    <header class="border-b border-dark-700 bg-dark-800/50 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center glow-effect">
+                    <i class="fa-solid fa-brain text-white text-lg"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-xl font-bold tracking-tight text-white">AI Content Automation</h1>
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            Live System
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-400">Multi-Agent Orchestration & Pipeline Architecture</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <button onclick="copyBlueprint()" class="px-4 py-2 bg-dark-700 hover:bg-dark-600 text-gray-200 text-sm font-medium rounded-xl border border-dark-600 transition flex items-center gap-2">
+                    <i class="fa-regular fa-copy text-brand-400"></i>
+                    Copy Blueprint JSON
+                </button>
+                <button onclick="triggerExport()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white text-sm font-medium rounded-xl shadow-lg shadow-brand-600/30 transition flex items-center gap-2">
+                    <i class="fa-solid fa-download"></i>
+                    Export Markdown
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        <!-- Intro Banner / Special Constraints Bar -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-dark-800 border border-dark-700 rounded-2xl p-5 flex items-start gap-4">
+                <div class="p-3 bg-brand-500/10 text-brand-400 rounded-xl">
+                    <i class="fa-solid fa-image text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-white">Gambar + Alt Text Otomatis</h3>
+                    <p class="text-xs text-gray-400 mt-1">Minimal 1 gambar setelah paragraf pertama dengan atribut <code class="text-brand-400 bg-dark-700 px-1 py-0.5 rounded">alt</code> bersumber dari judul/keyword.</p>
+                </div>
+            </div>
+
+            <div class="bg-dark-800 border border-dark-700 rounded-2xl p-5 flex items-start gap-4">
+                <div class="p-3 bg-indigo-500/10 text-indigo-400 rounded-xl">
+                    <i class="fa-solid fa-key text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-white">125+ Kata Kunci Turunan</h3>
+                    <p class="text-xs text-gray-400 mt-1">Dirangkai secara natural dalam kalimat mengalir tanpa keyword stuffing (SEO, AEO, & GEO).</p>
+                </div>
+            </div>
+
+            <div class="bg-dark-800 border border-dark-700 rounded-2xl p-5 flex items-start gap-4">
+                <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl">
+                    <i class="fa-solid fa-bolt text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-white">Auto-Index Google & Bing</h3>
+                    <p class="text-xs text-gray-400 mt-1">Artikel langsung memicu API penyerahan URL (IndexNow & Google Indexing) pascal-publish.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Pipeline Flowchart -->
+        <section class="space-y-4">
+            <div class="flex justify-between items-end">
+                <div>
+                    <h2 class="text-lg font-bold text-white">Pipeline Orchestration Flow</h2>
+                    <p class="text-xs text-gray-400">Klik salah satu tahap agen di bawah untuk melihat rincian skill & instruksi mendalam.</p>
+                </div>
+                <span class="text-xs text-brand-400 font-medium">Interactive Visualizer</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+                <!-- Step 1: Input -->
+                <div onclick="selectAgent('input')" id="card-input" class="cursor-pointer bg-dark-800 border-2 border-brand-500/50 rounded-2xl p-4 transition-all hover:border-brand-500 group relative">
+                    <div class="absolute -top-3 left-4 bg-brand-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">STAGE 01</div>
+                    <div class="mt-2 flex items-center justify-between mb-2">
+                        <div class="w-8 h-8 rounded-lg bg-brand-500/20 text-brand-400 flex items-center justify-center">
+                            <i class="fa-solid fa-keyboard"></i>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-600 group-hover:text-brand-400 transition hidden md:block"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-white">INPUT / TRIGGER</h3>
+                    <p class="text-xs text-gray-400 mt-1 line-clamp-2">Ide topik atau Keyword Utama dari user.</p>
+                </div>
+
+                <!-- Step 2: Agent 1 -->
+                <div onclick="selectAgent('analis')" id="card-analis" class="cursor-pointer bg-dark-800 border-2 border-dark-700 hover:border-brand-500/50 rounded-2xl p-4 transition-all group relative">
+                    <div class="absolute -top-3 left-4 bg-dark-700 text-gray-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-dark-600">STAGE 02</div>
+                    <div class="mt-2 flex items-center justify-between mb-2">
+                        <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-600 group-hover:text-brand-400 transition hidden md:block"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-white">AGENT 1: ANALIS</h3>
+                    <p class="text-xs text-gray-400 mt-1 line-clamp-2">Riset LSI Keyword, AEO, GEO, & Alt Text Strategy.</p>
+                </div>
+
+                <!-- Step 3: Agent 2 -->
+                <div onclick="selectAgent('penulis')" id="card-penulis" class="cursor-pointer bg-dark-800 border-2 border-dark-700 hover:border-brand-500/50 rounded-2xl p-4 transition-all group relative">
+                    <div class="absolute -top-3 left-4 bg-dark-700 text-gray-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-dark-600">STAGE 03</div>
+                    <div class="mt-2 flex items-center justify-between mb-2">
+                        <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                            <i class="fa-solid fa-pen-nib"></i>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-600 group-hover:text-brand-400 transition hidden md:block"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-white">AGENT 2: PENULIS</h3>
+                    <p class="text-xs text-gray-400 mt-1 line-clamp-2">Natural Sentence Builder, 125+ Keyword, & Image Prompt.</p>
+                </div>
+
+                <!-- Step 4: Agent 3 -->
+                <div onclick="selectAgent('reviewer')" id="card-reviewer" class="cursor-pointer bg-dark-800 border-2 border-dark-700 hover:border-brand-500/50 rounded-2xl p-4 transition-all group relative">
+                    <div class="absolute -top-3 left-4 bg-dark-700 text-gray-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-dark-600">STAGE 04</div>
+                    <div class="mt-2 flex items-center justify-between mb-2">
+                        <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                            <i class="fa-solid fa-shield-check"></i>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-600 group-hover:text-brand-400 transition hidden md:block"></i>
+                    </div>
+                    <h3 class="font-bold text-sm text-white">AGENT 3: REVIEWER</h3>
+                    <p class="text-xs text-gray-400 mt-1 line-clamp-2">SEO/AEO/GEO Validator & Constraint Checker.</p>
+                </div>
+
+                <!-- Step 5: Publish & Auto-Index -->
+                <div onclick="selectAgent('publish')" id="card-publish" class="cursor-pointer bg-dark-800 border-2 border-dark-700 hover:border-brand-500/50 rounded-2xl p-4 transition-all group relative">
+                    <div class="absolute -top-3 left-4 bg-dark-700 text-gray-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-dark-600">STAGE 05</div>
+                    <div class="mt-2 flex items-center justify-between mb-2">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-sm text-white">PUBLISH & INDEX</h3>
+                    <p class="text-xs text-gray-400 mt-1 line-clamp-2">CMS API Integration + Google & Bing Auto-Index.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detail Panel / Interactive Card View -->
+        <section class="bg-dark-800 border border-dark-700 rounded-3xl p-6 md:p-8 shadow-xl">
+            <div id="panel-content" class="space-y-6">
+                <!-- Dynamic Content Will Be Injected Here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-dark-700 bg-dark-800/30 py-6 text-center text-xs text-gray-500">
+        <p>AI Content Automation Blueprint System &bull; Powered by Multi-Agent Lead Orchestrator</p>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-dark-700 text-white px-4 py-3 rounded-xl border border-dark-600 shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toast-msg" class="text-sm font-medium">Berhasil disalin ke clipboard!</span>
+    </div>
+
+    <script>
+        const agentData = {
+            input: {
+                title: "Stage 01: Input & Initial Trigger",
+                subtitle: "Titik awal penerimaan ide topik atau keyword utama dari pengguna.",
+                icon: "fa-keyboard",
+                color: "text-brand-400",
+                badgeBg: "bg-brand-500/10 border-brand-500/20 text-brand-400",
+                description: "Tahap ini berfungsi sebagai gerbang utama sistem di mana operator atau sistem otomatis (scheduler/webhook) memasukkan topik dasar, kategori, atau keyword utama yang ingin dibahas dalam artikel website.",
+                skills: [
+                    "Keyword/Topic Intake Protocol",
+                    "Parameter & Target Audience Definition",
+                    "Initial Prompt Routing to Agent 1"
+                ],
+                rules: "Pastikan keyword utama bersih dan memiliki volume pencarian atau relevansi tinggi sebelum diteruskan ke Agen Analis."
+            },
+            analis: {
+                title: "Stage 02: Agent 1 - Researcher & Root Cause Analyst",
+                subtitle: "Membedah struktur riset mendalam untuk standar SEO, AEO, dan GEO.",
+                icon: "fa-magnifying-glass-chart",
+                color: "text-purple-400",
+                badgeBg: "bg-purple-500/10 border-purple-500/20 text-purple-400",
+                description: "Agent Analis bertanggung jawab penuh melakukan riset semantik mendalam, menentukan struktur heading (H2/H3), merumuskan 125+ kata kunci turunan LSI, menyiapkan strategi alt text gambar, serta memastikan konten ramah AI Answer Engines.",
+                skills: [
+                    "Riset Keyword Turunan (LSI & Semantic Keywords - 125+ item)",
+                    "Analisis AEO (Answer Engine Optimization & FAQ formulation)",
+                    "Analisis GEO (Generative Engine Optimization structure)",
+                    "Alt Text Strategy (Merumuskan alt text dari keyword utama/judul)"
+                ],
+                rules: "Wajib menyertakan daftar 125+ kata kunci turunan dan spesifikasi alt text gambar dalam bentuk struktur data JSON/Markdown ke Agen Penulis."
+            },
+            penulis: {
+                title: "Stage 03: Agent 2 - Solution Architect & Writer",
+                subtitle: "Mengeksekusi draf konten natural, integrasi kata kunci, & penempatan gambar.",
+                icon: "fa-pen-nib",
+                color: "text-blue-400",
+                badgeBg: "bg-blue-500/10 border-blue-500/20 text-blue-400",
+                description: "Agent Penulis merangkai seluruh instruksi dan outline dari Agen Analis menjadi artikel utuh yang mengalir secara natural. Mengintegrasikan 125+ kata kunci turunan tanpa keyword stuffing, serta menyisipkan tag gambar tepat setelah paragraf pertama.",
+                skills: [
+                    "Natural Sentence Builder (Merangkai 125+ keyword tanpa kaku)",
+                    "Dynamic Image Insertion (Wajib menaruh gambar tepat setelah paragraf ke-1)",
+                    "Alt Text Attribute Implementation (<img src='...' alt='[Judul/Keyword Utama]'>)",
+                    "Copywriting & Markdown Formatting"
+                ],
+                rules: "Gambar pertama mutlak berada di bawah paragraf 1 dengan atribut alt yang persis sesuai judul/keyword utama artikel."
+            },
+            reviewer: {
+                title: "Stage 04: Agent 3 - Quality Reviewer & Critic",
+                subtitle: "Melakukan audit kualitas ketat, validasi constraint, dan proofreading.",
+                icon: "fa-shield-check",
+                color: "text-amber-400",
+                badgeBg: "bg-amber-500/10 border-amber-500/20 text-amber-400",
+                description: "Agent Reviewer bertindak sebagai penguji kualitas terakhir sebelum artikel dipublish. Sistem akan melakukan constraint checking secara otomatis untuk memastikan jumlah keyword turunan minimal 125 buah dan keberadaan atribut alt pada gambar.",
+                skills: [
+                    "SEO/AEO/GEO Validator",
+                    "Constraint Checker (Audit jumlah kata kunci & gambar alt text)",
+                    "Editor & Proofreader Bahasa (PUEBI/EYD Natural Flow)"
+                ],
+                rules: "Jika syarat minimal (gambar, alt text, 125 keyword) belum terpenuhi, Agent Reviewer memerintahkan Agent Penulis untuk melakukan revisi otomatis."
+            },
+            publish: {
+                title: "Stage 05: CMS Publish & Auto-Index (Google & Bing)",
+                subtitle: "Otomatisasi publikasi website dan ping index mesin pencari instan.",
+                icon: "fa-rocket",
+                color: "text-emerald-400",
+                badgeBg: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400",
+                description: "Setelah lolos sensor Agen Reviewer, artikel otomatis dikirim ke CMS (WordPress/Ghost/Webflow) via REST API. Seketika status sukses publish tercapai, sistem langsung menembakkan API Auto-Index ke Google Indexing API dan Bing IndexNow.",
+                skills: [
+                    "CMS API Integration (WordPress, Ghost, Custom Web)",
+                    "Google Indexing API Auto-Submit",
+                    "Bing IndexNow Protocol Integration"
+                ],
+                rules: "Pastikan kredensial API Google Search Console dan IndexNow terhubung dengan stabil agar URL langsung terindeks dalam hitungan menit."
+            }
+        };
+
+        function selectAgent(key) {
+            // Reset border styles across all cards
+            ['input', 'analis', 'penulis', 'reviewer', 'publish'].forEach(k => {
+                const card = document.getElementById(`card-${k}`);
+                card.className = "cursor-pointer bg-dark-800 border-2 border-dark-700 hover:border-brand-500/50 rounded-2xl p-4 transition-all group relative";
+            });
+
+            // Highlight selected card
+            const selectedCard = document.getElementById(`card-${key}`);
+            selectedCard.className = "cursor-pointer bg-dark-800 border-2 border-brand-500 rounded-2xl p-4 transition-all group relative shadow-lg shadow-brand-500/10";
+
+            // Render content in detail panel
+            const data = agentData[key];
+            const panel = document.getElementById('panel-content');
+            
+            let skillsHtml = data.skills.map(s => `
+                <li class="flex items-start gap-2.5 text-sm text-gray-300">
+                    <i class="fa-solid fa-check text-brand-400 mt-1"></i>
+                    <span>${s}</span>
+                </li>
+            `).join('');
+
+            panel.innerHTML = `
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-dark-700 pb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-dark-700 border border-dark-600 flex items-center justify-center ${data.color} text-xl">
+                            <i class="fa-solid ${data.icon}"></i>
+                        </div>
+                        <div>
+                            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold border ${data.badgeBg}">Active Module</span>
+                            <h3 class="text-xl font-bold text-white mt-1">${data.title}</h3>
+                            <p class="text-sm text-gray-400">${data.subtitle}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-2">
+                    <div class="lg:col-span-2 space-y-4">
+                        <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400">Deskripsi & Cara Kerja</h4>
+                        <p class="text-sm text-gray-300 leading-relaxed">${data.description}</p>
+                        
+                        <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400 pt-2">Aturan Ketat (Constraints)</h4>
+                        <div class="bg-dark-900 border border-dark-700 rounded-xl p-4 text-xs text-brand-400 font-mono">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> ${data.rules}
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 bg-dark-900/50 border border-dark-700/60 p-5 rounded-2xl">
+                        <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400">Core Skills & Protocols</h4>
+                        <ul class="space-y-3">
+                            ${skillsHtml}
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize with 'analis' selected by default
+        window.onload = function() {
+            selectAgent('analis');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msg = document.getElementById('toast-msg');
+            msg.innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function copyBlueprint() {
+            const blueprintJSON = JSON.stringify(agentData, null, 2);
+            const textArea = document.createElement("textarea");
+            textArea.value = blueprintJSON;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast("Blueprint JSON berhasil disalin ke clipboard!");
+            } catch (err) {
+                showToast("Gagal menyalin teks.");
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function triggerExport() {
+            showToast("Mempersiapkan laporan Markdown (.md)...");
+            setTimeout(() => {
+                const reportContent = `# Multi-Agent Orchestration Report
+## 1. Konteks & Sistem
+AI Content Automation Blueprint dengan alur INPUT > AGENT ANALIS > AGENT PENULIS > AGENT REVIEW > PUBLISH & AUTO-INDEX.
+
+## 2. Fitur Khusus
+- Minimal 1 gambar setelah paragraf pertama dengan atribut alt dari judul/keyword.
+- Minimal 125 kata kunci turunan natural.
+- Auto-index instan ke Google & Bing.`;
+                
+                const blob = new Blob([reportContent], { type: 'text/markdown' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Agent_Automation_Blueprint.md';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast("Laporan berhasil di-download!");
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
