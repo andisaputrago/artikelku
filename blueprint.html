@@ -3,156 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blueprint AI Agent Content Automation</title>
-    <!-- Tailwind CSS untuk styling modern -->
+    <title>Blueprint: AI Multi-Agent Article Generator</title>
+    <!-- Tailwind CSS CDN untuk styling yang cepat dan elegan -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen">
 
-    <!-- Container Utama -->
-    <div class="max-w-5xl mx-auto px-4 py-10">
-        
-        <!-- Header -->
-        <header class="mb-10 text-center">
-            <h1 class="text-3xl font-extrabold text-slate-900 mb-2">AI Agent Content Automation Blueprint</h1>
-            <p class="text-slate-600">Sistem Orkestrasi Multi-Agen untuk Riset Pasar, Strategi SEO, Konten 1500-2000 Kata, & Auto-Index.</p>
-        </header>
-
-        <!-- Panel Kontrol Input -->
-        <div class="bg-white shadow-md rounded-2xl p-6 mb-8 border border-slate-100">
-            <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                <span>⚙️</span> Konfigurasi Input Artikel
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1">Topik / Keyword Utama</label>
-                    <input type="text" id="mainTopic" value="Strategi Digital Marketing UMKM 2026" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+    <!-- Header / Navbar -->
+    <header class="bg-slate-800 border-b border-slate-700 py-4 px-6 shadow-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-600 p-2 rounded-lg text-white">
+                    <i class="fa-solid fa-robot text-xl"></i>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1">Target Niche / Bisnis</label>
-                    <input type="text" id="businessNiche" value="Konsultan Bisnis & Teknologi" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <h1 class="text-xl font-bold tracking-wide">AI Multi-Agent Control Panel</h1>
+                    <p class="text-xs text-slate-400">Blueprint Otomatisasi Artikel (SEO, AEO, GEO & Auto-Index)</p>
                 </div>
             </div>
-            <button onclick="runSimulation()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-lg transition duration-200 flex items-center justify-center gap-2 w-full md:w-auto">
-                <span>🚀 Jalankan Orkestrasi Agen</span>
-            </button>
-        </div>
-
-        <!-- Alur Kerja Multi-Agen (Blueprint Pipeline) -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <!-- Agent 1 -->
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
-                <div class="text-blue-600 font-bold text-sm mb-1">TAHAP 1</div>
-                <h3 class="font-bold text-slate-900 mb-2">Agent 1: Analis & Strategist</h3>
-                <p class="text-xs text-slate-500 mb-3">Riset pasar, kompetitor, strategi SEO, AEO/GEO, & 125+ keyword turunan.</p>
-                <span id="status-1" class="inline-block px-2 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded">Menunggu...</span>
-            </div>
-
-            <!-- Agent 2 -->
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
-                <div class="text-indigo-600 font-bold text-sm mb-1">TAHAP 2</div>
-                <h3 class="font-bold text-slate-900 mb-2">Agent 2: Content Writer</h3>
-                <p class="text-xs text-slate-500 mb-3">Menulis 1500-2000 kata natural, gambar + alt, & link eksternal rujukan.</p>
-                <span id="status-2" class="inline-block px-2 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded">Menunggu...</span>
-            </div>
-
-            <!-- Agent 3 -->
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
-                <div class="text-purple-600 font-bold text-sm mb-1">TAHAP 3</div>
-                <h3 class="font-bold text-slate-900 mb-2">Agent 3: Quality Reviewer</h3>
-                <p class="text-xs text-slate-500 mb-3">Constraint checker (jumlah kata, link, alt text) & validasi SEO.</p>
-                <span id="status-3" class="inline-block px-2 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded">Menunggu...</span>
-            </div>
-
-            <!-- Output System -->
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
-                <div class="text-green-600 font-bold text-sm mb-1">TAHAP 4</div>
-                <h3 class="font-bold text-slate-900 mb-2">Publish & Auto-Index</h3>
-                <p class="text-xs text-slate-500 mb-3">Kirim ke CMS via API & pings IndexNow (Google/Bing).</p>
-                <span id="status-4" class="inline-block px-2 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded">Menunggu...</span>
+            <div class="flex items-center space-x-2">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span class="w-2 h-2 mr-1.5 bg-emerald-400 rounded-full animate-pulse"></span> System Ready
+                </span>
             </div>
         </div>
+    </header>
 
-        <!-- Log / Output Simulasi Real-time -->
-        <div class="bg-slate-900 text-slate-200 p-6 rounded-2xl shadow-inner font-mono text-sm">
-            <div class="flex justify-between items-center mb-3 border-b border-slate-800 pb-2">
-                <span class="font-bold text-slate-400">Terminal Output Log</span>
-                <span id="live-indicator" class="text-xs text-slate-500">Idle</span>
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Kolom Kiri: Form Input & Kontrol (Span 1) -->
+        <section class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg flex flex-col justify-between">
+            <div>
+                <h2 class="text-lg font-semibold mb-4 flex items-center text-blue-400">
+                    <i class="fa-solid fa-sliders mr-2"></i> Input & Konfigurasi Topik
+                </h2>
+                
+                <form id="generatorForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-1">Topik Utama / Keyword</label>
+                        <input type="text" id="mainTopic" placeholder="Contoh: Strategi Digital Marketing 2026" 
+                            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-blue-500 transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-1">Target Panjang Artikel</label>
+                        <select id="wordCount" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-blue-500 transition">
+                            <option value="1500">1.500 - 2.000 Kata (Standard Long-Form)</option>
+                            <option value="2000">2.000+ Kata (Deep Guide)</option>
+                        </select>
+                    </div>
+
+                    <div class="p-3 bg-slate-900/50 rounded-lg border border-slate-700/60 text-xs text-slate-400 space-y-1.5">
+                        <p class="font-medium text-slate-300 mb-1"><i class="fa-solid fa-circle-info text-blue-400 mr-1"></i> Parameter Otomatis Aktif:</p>
+                        <p>✓ Riset Pasar & Kompetitor</p>
+                        <p>✓ 125+ Kata Kunci Turunan (Natural)</p>
+                        <p>✓ 1 Gambar + Alt Text (Judul/Keyword)</p>
+                        <p>✓ Min. 1 Link Eksternal (Wikipedia/Authority)</p>
+                        <p>✓ Auto-Index (Google & Bing API)</p>
+                    </div>
+                </form>
             </div>
-            <div id="terminal-log" class="space-y-1 h-48 overflow-y-auto text-xs text-slate-300">
-                <p class="text-slate-500">> Sistem blueprint siap. Silakan klik tombol "Jalankan Orkestrasi Agen" di atas.</p>
+
+            <div class="mt-6">
+                <button type="button" onclick="startWorkflow()" id="btnExecute"
+                    class="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium py-3 px-4 rounded-lg transition shadow-md flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-play"></i>
+                    <span>Jalankan Pipeline Agen</span>
+                </button>
             </div>
-        </div>
+        </section>
 
-        <!-- Footer Blueprint -->
-        <footer class="mt-10 text-center text-xs text-slate-400">
-            <p>Multi-Agent Orchestration Blueprint &bull; Dapat diintegrasikan ke platform n8n, Make.com, atau custom web server.</p>
-        </footer>
+        <!-- Kolom Kanan: Alur Estafet Agen & Live Log (Span 2) -->
+        <section class="lg:col-span-2 space-y-6">
+            
+            <!-- Visualisasi Alur Agen -->
+            <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg">
+                <h2 class="text-lg font-semibold mb-4 flex items-center text-blue-400">
+                    <i class="fa-solid fa-network-wired mr-2"></i> Status Kerja Estafet Agen
+                </h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-center">
+                    <!-- Agent 1 -->
+                    <div id="statusAgent1" class="bg-slate-900 border border-slate-700 rounded-lg p-3 transition">
+                        <div class="text-slate-400 text-xs mb-1 font-semibold">LANGKAH 1</div>
+                        <div class="font-bold text-sm text-slate-200">Agent Analis</div>
+                        <div id="badge1" class="mt-2 text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 inline-block">Menunggu</div>
+                    </div>
+                    <!-- Agent 2 -->
+                    <div id="statusAgent2" class="bg-slate-900 border border-slate-700 rounded-lg p-3 transition">
+                        <div class="text-slate-400 text-xs mb-1 font-semibold">LANGKAH 2</div>
+                        <div class="font-bold text-sm text-slate-200">Agent Penulis</div>
+                        <div id="badge2" class="mt-2 text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 inline-block">Menunggu</div>
+                    </div>
+                    <!-- Agent 3 -->
+                    <div id="statusAgent3" class="bg-slate-900 border border-slate-700 rounded-lg p-3 transition">
+                        <div class="text-slate-400 text-xs mb-1 font-semibold">LANGKAH 3</div>
+                        <div class="font-bold text-sm text-slate-200">Agent Review</div>
+                        <div id="badge3" class="mt-2 text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 inline-block">Menunggu</div>
+                    </div>
+                    <!-- Publish -->
+                    <div id="statusPublish" class="bg-slate-900 border border-slate-700 rounded-lg p-3 transition">
+                        <div class="text-slate-400 text-xs mb-1 font-semibold">LANGKAH 4</div>
+                        <div class="font-bold text-sm text-slate-200">Publish & Index</div>
+                        <div id="badge4" class="mt-2 text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 inline-block">Menunggu</div>
+                    </div>
+                </div>
+            </div>
 
-    </div>
+            <!-- Terminal Output / Log Logika Agen -->
+            <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-sm font-semibold text-slate-300 flex items-center">
+                        <i class="fa-solid fa-terminal mr-2 text-emerald-400"></i> Terminal Log Aktivitas
+                    </h2>
+                    <button onclick="clearLog()" class="text-xs text-slate-400 hover:text-slate-200 underline">Bersihkan Log</button>
+                </div>
+                
+                <div id="terminalLog" class="bg-slate-950 border border-slate-800 rounded-lg p-4 h-56 overflow-y-auto font-mono text-xs text-slate-300 space-y-2">
+                    <p class="text-slate-500">[System] Blueprint siap. Masukkan topik dan klik "Jalankan Pipeline Agen" untuk memulai simulasi proses...</p>
+                </div>
+            </div>
 
-    <!-- Script Interaktif Sederhana untuk Simulasi Blueprint -->
+        </section>
+
+    </main>
+
+    <!-- Script Simulasi Interaktif -->
     <script>
-        function logMessage(message, type = 'info') {
-            const term = document.getElementById('terminal-log');
+        function logMessage(message, type = "info") {
+            const terminal = document.getElementById('terminalLog');
             const p = document.createElement('p');
-            p.className = type === 'success' ? 'text-green-400' : (type === 'process' ? 'text-blue-400' : 'text-slate-300');
-            p.textContent = `> ${message}`;
-            term.appendChild(p);
-            term.scrollTop = term.scrollHeight;
+            let colorClass = "text-slate-300";
+            if(type === "success") colorClass = "text-emerald-400 font-semibold";
+            if(type === "warning") colorClass = "text-amber-400";
+            if(type === "agent") colorClass = "text-blue-400 font-semibold";
+            
+            p.className = colorClass;
+            p.innerHTML = `> ${message}`;
+            terminal.appendChild(p);
+            terminal.scrollTop = terminal.scrollHeight;
         }
 
-        async function runSimulation() {
-            const topic = document.getElementById('mainTopic').value;
-            const niche = document.getElementById('businessNiche').value;
+        function clearLog() {
+            document.getElementById('terminalLog').innerHTML = '<p class="text-slate-500">[System] Log dibersihkan.</p>';
+        }
+
+        function setAgentStatus(step, status) {
+            const badge = document.getElementById(`badge${step}`);
+            const box = document.getElementById(step === 4 ? 'statusPublish' : `statusAgent${step}`);
             
-            // Reset status
-            document.getElementById('terminal-log').innerHTML = '';
-            document.getElementById('live-indicator').textContent = 'Running...';
-            document.getElementById('live-indicator').className = 'text-xs text-yellow-400 font-bold animate-pulse';
+            if(status === 'active') {
+                badge.className = "mt-2 text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30 animate-pulse";
+                badge.innerText = "Sedang Berproses...";
+                box.className = "bg-slate-900 border border-blue-500/50 rounded-lg p-3 transition shadow-lg shadow-blue-500/10";
+            } else if(status === 'completed') {
+                badge.className = "mt-2 text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+                badge.innerText = "Selesai";
+                box.className = "bg-slate-900 border border-emerald-500/30 rounded-lg p-3 transition";
+            }
+        }
 
-            ['1', '2', '3', '4'].forEach(id => {
-                const el = document.getElementById(`status-${id}`);
-                el.textContent = 'Menunggu...';
-                el.className = 'inline-block px-2 py-1 text-xs font-semibold bg-slate-100 text-slate-600 rounded';
-            });
+        async function startWorkflow() {
+            const topic = document.getElementById('mainTopic').value.trim();
+            if(!topic) {
+                alert("Harap masukkan topik atau keyword utama terlebih dahulu, bro!");
+                return;
+            }
 
-            // Tahap 1
-            logMessage(`Memulai orkestrasi untuk topik: "${topic}" (Niche: ${niche})`, 'process');
-            document.getElementById('status-1').textContent = 'Proses...';
-            document.getElementById('status-1').className = 'inline-block px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded';
+            const btn = document.getElementById('btnExecute');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            clearLog();
+            logMessage(`Memulai orkestrasi untuk topik: "${topic}"`, "info");
+
+            // Step 1: Agent Analis
+            setAgentStatus(1, 'active');
+            logMessage("[Agent 1 - Researcher] Memulai riset pasar, analisis kompetitor, dan pemetaan strategi SEO...", "agent");
             await new Promise(r => setTimeout(r, 1500));
-            logMessage('[Agent 1] Riset pasar, kompetitor, & strategi SEO selesai. Memetakan 125+ keyword turunan.', 'success');
-            document.getElementById('status-1').textContent = 'Selesai';
-            document.getElementById('status-1').className = 'inline-block px-2 py-1 text-xs font-semibold bg-green-100 text-green-700 rounded';
+            logMessage("[Agent 1] Berhasil merumuskan 125+ kata kunci turunan & menyusun kerangka konten AEO/GEO.", "success");
+            setAgentStatus(1, 'completed');
 
-            // Tahap 2
-            document.getElementById('status-2').textContent = 'Proses...';
-            document.getElementById('status-2').className = 'inline-block px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded';
-            await new Promise(r => setTimeout(r, 2000));
-            logMessage('[Agent 2] Menulis draf 1.500 - 2.000 kata bergaya natural. Menyisipkan gambar (alt: keyword utama) & link eksternal Wikipedia.', 'success');
-            document.getElementById('status-2').textContent = 'Selesai';
-            document.getElementById('status-2').className = 'inline-block px-2 py-1 text-xs font-semibold bg-green-100 text-green-700 rounded';
+            // Step 2: Agent Penulis
+            setAgentStatus(2, 'active');
+            logMessage("[Agent 2 - Specialist] Menulis draf artikel panjang (1.500 - 2.000 kata) dengan gaya natural...", "agent");
+            await new Promise(r => setTimeout(r, 1800));
+            logMessage("[Agent 2] Menyisipkan gambar pertama dengan Alt Text: \"" + topic + "\" dan link eksternal Wikipedia.", "success");
+            setAgentStatus(2, 'completed');
 
-            // Tahap 3
-            document.getElementById('status-3').textContent = 'Proses...';
-            document.getElementById('status-3').className = 'inline-block px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded';
+            // Step 3: Agent Review
+            setAgentStatus(3, 'active');
+            logMessage("[Agent 3 - Reviewer] Melakukan audit constraint: cek jumlah kata, struktur SEO, dan validasi link...", "agent");
             await new Promise(r => setTimeout(r, 1500));
-            logMessage('[Agent 3] Validasi constraint ketat: Panjang kata valid (1.820 kata), link eksternal & alt text gambar terverifikasi.', 'success');
-            document.getElementById('status-3').textContent = 'Selesai';
-            document.getElementById('status-3').className = 'inline-block px-2 py-1 text-xs font-semibold bg-green-100 text-green-700 rounded';
+            logMessage("[Agent 3] Semua syarat terpenuhi dengan sempurna. Kualitas artikel dinyatakan layak tayang.", "success");
+            setAgentStatus(3, 'completed');
 
-            // Tahap 4
-            document.getElementById('status-4').textContent = 'Proses...';
-            document.getElementById('status-4').className = 'inline-block px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-700 rounded';
-            await new Promise(r => setTimeout(r, 1500));
-            logMessage('[System] Artikel dipublikasikan ke CMS via REST API. Memicu Auto-Index ke Google & Bing (IndexNow)... Sukses!', 'success');
-            document.getElementById('status-4').textContent = 'Published';
-            document.getElementById('status-4').className = 'inline-block px-2 py-1 text-xs font-semibold bg-green-100 text-green-700 rounded';
+            // Step 4: Publish & Index
+            setAgentStatus(4, 'active');
+            logMessage("[System] Mengirim artikel ke CMS via API (WordPress/Ghost)...", "agent");
+            await new Promise(r => setTimeout(r, 1200));
+            logMessage("[System] Artikel berhasil dipublikasikan! Memicu protokol Auto-Index ke Google & Bing API...", "success");
+            setAgentStatus(4, 'completed');
 
-            document.getElementById('live-indicator').textContent = 'Selesai';
-            document.getElementById('live-indicator').className = 'text-xs text-green-400 font-bold';
-            logMessage('Semua rangkaian proses orkestrasi agen telah selesai dengan sempurna!', 'success');
+            logMessage("Pipeline Multi-Agent Selesai Sepenuhnya! 🎉", "success");
+            btn.disabled = false;
+            btn.classList.remove('opacity-50', 'cursor-not-allowed');
         }
     </script>
 </body>
